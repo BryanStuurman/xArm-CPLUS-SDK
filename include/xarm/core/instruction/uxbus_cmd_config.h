@@ -203,8 +203,8 @@ public:
 	UXBUS_CONF(void) {}
 	~UXBUS_CONF(void) {}
 
-	static const int SET_TIMEOUT = 2000;  // ms
-	static const int GET_TIMEOUT = 2000;  // ms
+	static const int SET_TIMEOUT = 100;  // ms
+	static const int GET_TIMEOUT = 100;  // ms
 
 	static const int TRACK_ID = 1;
 	static const int GRIPPER_ID = 8;
