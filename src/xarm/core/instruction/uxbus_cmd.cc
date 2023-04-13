@@ -59,8 +59,12 @@ int UxbusCmd::set_nu8(int funcode, unsigned char *datas, int num) {
 	std::lock_guard<std::mutex> locker(mutex_);
 	int ret = send_xbus(funcode, datas, num);
 	if (ret != 0) { return UXBUS_STATE::ERR_NOTTCP; }
-	// set a privileged timeout for certain commands: (consider SET_MODE, CLEAN_ERR, CLEAN_WAR as well)
-	int timeout = ((funcode != UXBUS_RG::MOTION_EN) && (funcode!=UXBUS_RG::SET_STATE)) ? SET_TIMEOUT_ : 2000;
+	// set a privileged timeout for certain commands, timeout to 3 sec as i've seen turnarounds in the 2200 range lately.
+	int timeout = (	(funcode != UXBUS_RG::MOTION_EN) 		&& 
+					(funcode != UXBUS_RG::SET_STATE) 		&&
+					(funcode != UXBUS_RG::SET_MODE) 		&&
+					(funcode != UXBUS_RG::CLEAN_ERR) 		&&
+					(funcode != UXBUS_RG::CLEAN_WAR) ) 		?  SET_TIMEOUT_ : 3000;
 	ret = send_pend(funcode, 0, timeout, NULL);
 	return ret;
 }
