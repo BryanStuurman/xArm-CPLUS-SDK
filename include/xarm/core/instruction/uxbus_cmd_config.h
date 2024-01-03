@@ -22,7 +22,7 @@ public:
   static const unsigned char CHECK_VERIFY = 3;
   static const unsigned char RELOAD_DYNAMICS = 4;
   static const unsigned char GET_REPORT_TAU_OR_I = 5;
-  static const unsigned char SHUTDOWN_SYSTEM = 10;
+  static const unsigned char SYSTEM_CONTROL = 10;
 
   static const unsigned char MOTION_EN = 11;
   static const unsigned char SET_STATE = 12;
@@ -86,6 +86,8 @@ public:
   static const unsigned char PLAY_TRAJ = 64;
   static const unsigned char GET_TRAJ_RW_STATUS = 65;
   static const unsigned char ALLOW_APPROX_MOTION = 66;
+  static const unsigned char GET_DH = 67;
+  static const unsigned char SET_DH = 68;
 
   static const unsigned char REPORT_TAU_OR_I = 70;
   static const unsigned char SET_TIMER = 71;
@@ -168,6 +170,9 @@ public:
 
   static const unsigned char TGPIO_COM_TIOUT = 240;
   static const unsigned char TGPIO_COM_DATA = 241;
+
+  static const unsigned char FEEDBACK_CHECK = 253;
+  static const unsigned char SET_FEEDBACK_TYPE = 254;
 };
 
 class UXBUS_STATE {
@@ -281,6 +286,7 @@ public:
   static const int TRAJ_RW_FAILED = 31;
   static const int TRAJ_RW_TOUT = 32;
   static const int TRAJ_PLAYBACK_TOUT = 33;
+  static const int TRAJ_PLAYBACK_FAILED = 34;
   static const int SUCTION_CUP_TOUT = 41;
 
   static const int MODE_IS_NOT_CORRECT = 51;
@@ -293,6 +299,8 @@ public:
   static const int CHECK_FAILED = 101;
   static const int END_EFFECTOR_HAS_FAULT = 102;
   static const int END_EFFECTOR_NOT_ENABLED = 103;
+
+  // 129 ~ 144: Standard ModbusTCP exception, the actual exception code is (api_code-0x80)
 };
 
 class BIO_STATE {
@@ -323,6 +331,28 @@ public:
   static const int USE_PRIMITIVES = 20;
   static const int CYLINDER = 21;
   static const int BOX = 22;
+};
+
+class FeedbackType {
+public:
+  FeedbackType(void) {}
+  ~FeedbackType(void) {}
+
+  static const unsigned char MOTION_START = 1;
+  static const unsigned char MOTION_FINISH = 2;
+  static const unsigned char TRIGGER = 4;
+  static const unsigned char OTHER_START = 32;
+  static const unsigned char OTHER_FINISH = 64;
+};
+
+class FeedbackCode {
+public:
+  FeedbackCode(void) {}
+  ~FeedbackCode(void) {}
+
+  static const unsigned char SUCCESS = 0;
+  static const unsigned char FAILURE = 1;
+  static const unsigned char DISCARD = 2;
 };
 
 #endif
